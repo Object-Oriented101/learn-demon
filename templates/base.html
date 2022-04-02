@@ -1,45 +1,43 @@
 <!DOCTYPE html>
 
 <style>
-.float-container {
-    border: 3px solid #fff;
-    padding: 20px;
-}
-
-.float-child {
-    width: 45%;
-    float: left;
-    padding: 15px;
-    border: 5px solid rgb(45, 166, 247);
-} 
+    html, body {
+        height: 100%;
+        width: 100%;
+    }
+    div {
+        width: 50%;
+        height: 50%;
+        float: left;
+    }
+        
 </style>
 <body>
     <center><h1>Entrepreneur's Dashboard</h1></center>
-    <div class="float-container">
-        <div class="float-child">
-            {% block work_graph %}
-            {% endblock work_graph %}
-        </div>
-        <div class="float-child">
-            <center><h2>Current Project: {{project_details.name}} </h2></center>
-            <h3>Problem Statemant: {{project_details.problem_statemant}} </h3>
-            <h3>My unfair advantage: {{project_details.unfair_advantage}} </h3>
-            <h3>Audience to monopolize: {{project_details.target_audience}} </h3>
-            <h3>Number of customers: {{project_details.num_of_customers}} </h3>
-            <h3>Revenue: ${{project_details.revenue}} </h3>
-        </div>
+    <div>
+        {% block work_graph %}
+        {% endblock work_graph %}
     </div>
-    <div class="float-container">
-        <div class="float-child">
-            <h1>Progress Log</h1>
-        </div>
-        <div class="float-child">
-            <center><h2>Current Project: {{project_details.name}} </h2></center>
-            <h3>Problem Statemant: {{project_details.problem_statemant}} </h3>
-            <h3>My unfair advantage: {{project_details.unfair_advantage}} </h3>
-            <h3>Audience to monopolize: {{project_details.target_audience}} </h3>
-            <h3>Number of customers: {{project_details.num_of_customers}} </h3>
-            <h3>Revenue: ${{project_details.revenue}} </h3>
-        </div>
+
+    <div>
+        <center><h2>Current Project: {{project_details.name}} </h2></center>
+        <h3>Problem Statemant: {{project_details.problem_statemant}} </h3>
+        <h3>My unfair advantage: {{project_details.unfair_advantage}} </h3>
+        <h3>Audience to monopolize: {{project_details.target_audience}} </h3>
+        <h3>Number of customers: {{project_details.num_of_customers}} </h3>
+        <h3>Revenue: ${{project_details.revenue}} </h3>
+    </div>
+
+    <div>
+        <h1>Progress Log</h1>
+    </div>
+
+    <div>
+        <center><h2>Current Project: {{project_details.name}} </h2></center>
+        <h3>Problem Statemant: {{project_details.problem_statemant}} </h3>
+        <h3>My unfair advantage: {{project_details.unfair_advantage}} </h3>
+        <h3>Audience to monopolize: {{project_details.target_audience}} </h3>
+        <h3>Number of customers: {{project_details.num_of_customers}} </h3>
+        <h3>Revenue: ${{project_details.revenue}} </h3>
     </div>
 </body>
