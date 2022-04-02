@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<style>
+.float-container {
+    border: 3px solid #fff;
+    padding: 20px;
+}
+
+.float-child {
+    width: 45%;
+    float: left;
+    padding: 10px;
+    border: 5px solid rgb(45, 166, 247);
+} 
+</style>
+<body>
+    <center><h1>Entrepreneur's Dashboard</h1></center>
+    <div class="float-container">
+        <div class="float-child">
+            {% block work_graph %}
+            {% endblock work_graph %}
+        </div>
+        <div class="float-child">
+            <center><h2>Current Project: </h2></center>
+            <h3>Problem Statemant</h3>
+            <h3>My unfair advantage</h3>
+            <h3>Number of customers</h3>
+        </div>
+    </div>
+</body>
