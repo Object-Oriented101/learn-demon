@@ -10,6 +10,14 @@
         height: 50%;
         float: left;
     }
+
+    #first {
+        width: 800px;
+        height: 200px;
+        background: rgb(227, 137, 137);
+        overflow: hidden;
+        margin-bottom: 7%;
+    }
         
 </style>
 <body>
@@ -30,6 +38,23 @@
 
     <div>
         <h1>Progress Log</h1>
+        <div id="first">
+            <h3>Hours: {{progress_0.hours}}</h3>
+            <h3>Date: {{progress_0.date}}</h3>
+            <h3>Description: {{progress_0.description}}</h3>
+        </div>
+        <br>
+        <div id="first">
+            <h3>Hours: {{progress_1.hours}}</h3>
+            <h3>Date: {{progress_1.date}}</h3>
+            <h3>Description: {{progress_1.description}}</h3>
+        </div>
+        <br>
+        <div id="first">
+            <h3>Hours: {{progress_2.hours}}</h3>
+            <h3>Date: {{progress_2.date}}</h3>
+            <h3>Description: {{progress_2.description}}</h3>
+        </div>
     </div>
 
     <div>

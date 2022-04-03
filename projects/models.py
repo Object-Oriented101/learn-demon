@@ -15,7 +15,7 @@ class Project(models.Model):
         return str(self.name)
 
 class Progress_Block(models.Model):
-    time = models.DecimalField(max_digits = 4, decimal_places=2)
+    hours = models.DecimalField(max_digits = 4, decimal_places=2)
     date = models.DateField()
     description = models.CharField(max_length=1000)
 
