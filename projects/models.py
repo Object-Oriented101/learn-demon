@@ -18,6 +18,15 @@ class Progress_Block(models.Model):
     hours = models.DecimalField(max_digits = 4, decimal_places=2)
     date = models.DateField()
     description = models.CharField(max_length=1000)
+    high_level_purpose = models.CharField(max_length=1000)
 
     def __str__(self):
         return str(self.date)
+
+class Scoping_Block(models.Model):
+    phase_number = models.IntegerField()
+    phase_name = models.CharField(max_length=1000)
+    description = models.CharField(max_length=1000)
+
+    def __str__(self):
+        return str(self.phase_name)

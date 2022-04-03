@@ -11,7 +11,7 @@
         float: left;
     }
 
-    #first {
+    #log_style {
         width: 800px;
         height: 200px;
         background: rgb(227, 137, 137);
@@ -19,12 +19,20 @@
         margin-bottom: 7%;
     }
         
+    #scoping_style{
+        width: 400px;
+        height: 200px;
+        background: rgb(135, 152, 201);
+        overflow: hidden;
+        margin-right: 10%;
+        margin-bottom: 3%;
+    }
 </style>
 <body>
     <center><h1>Entrepreneur's Dashboard</h1></center>
     <div>
-        {% block work_graph %}
-        {% endblock work_graph %}
+            {% block work_graph %}
+            {% endblock work_graph %}
     </div>
 
     <div>
@@ -38,31 +46,41 @@
 
     <div>
         <h1>Progress Log</h1>
-        <div id="first">
+        <div id="log_style">
             <h3>Hours: {{progress_0.hours}}</h3>
             <h3>Date: {{progress_0.date}}</h3>
             <h3>Description: {{progress_0.description}}</h3>
+            <h3>Contribution to the main goal: {{progress_0.high_level_purpose}}</h3>
         </div>
         <br>
-        <div id="first">
+        <div id="log_style">
             <h3>Hours: {{progress_1.hours}}</h3>
             <h3>Date: {{progress_1.date}}</h3>
             <h3>Description: {{progress_1.description}}</h3>
+            <h3>Contribution to the main goal: {{progress_1.high_level_purpose}}</h3>
         </div>
         <br>
-        <div id="first">
+        <div id="log_style">
             <h3>Hours: {{progress_2.hours}}</h3>
             <h3>Date: {{progress_2.date}}</h3>
             <h3>Description: {{progress_2.description}}</h3>
+            <h3>Contribution to the main goal: {{progress_2.high_level_purpose}}</h3>
         </div>
     </div>
 
     <div>
-        <center><h2>Current Project: {{project_details.name}} </h2></center>
-        <h3>Problem Statemant: {{project_details.problem_statemant}} </h3>
-        <h3>My unfair advantage: {{project_details.unfair_advantage}} </h3>
-        <h3>Audience to monopolize: {{project_details.target_audience}} </h3>
-        <h3>Number of customers: {{project_details.num_of_customers}} </h3>
-        <h3>Revenue: ${{project_details.revenue}} </h3>
+        <center><h2> Project Scoping </h2></center>
+        <div id="scoping_style">
+            <h3>Phase {{scoping_0.phase_number}}: {{scoping_0.phase_name}} </h3>
+            <h3>Description: {{scoping_0.description}} </h3>
+        </div>
+        <div id="scoping_style">
+            <h3>Phase {{scoping_1.phase_number}}: {{scoping_1.phase_name}} </h3>
+            <h3>Description: {{scoping_1.description}} </h3>
+        </div>
+        <div id="scoping_style">
+            <h3>Phase {{scoping_2.phase_number}}: {{scoping_2.phase_name}} </h3>
+            <h3>Description: {{scoping_2.description}} </h3>
+        </div>
     </div>
 </body>
