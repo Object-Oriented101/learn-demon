@@ -11,9 +11,9 @@
         float: left;
     }
 
-    #log_style {
+    #progress_log_style {
         width: 800px;
-        height: 200px;
+        height: 250px;
         background: rgb(227, 137, 137);
         overflow: hidden;
         margin-bottom: 7%;
@@ -24,7 +24,7 @@
         height: 200px;
         background: rgb(135, 152, 201);
         overflow: hidden;
-        margin-right: 10%;
+        margin-right: 20%;
         margin-bottom: 3%;
     }
 </style>
@@ -46,41 +46,25 @@
 
     <div>
         <h1>Progress Log</h1>
-        <div id="log_style">
-            <h3>Hours: {{progress_0.hours}}</h3>
-            <h3>Date: {{progress_0.date}}</h3>
-            <h3>Description: {{progress_0.description}}</h3>
-            <h3>Contribution to the main goal: {{progress_0.high_level_purpose}}</h3>
+        {% for progress in progress_blocks %}
+        <div id="progress_log_style">
+            <h2>Scope: {{progress.scoping_phase}}</h2>
+            <h3>Hours: {{progress.hours}}</h3>
+            <h3>Date: {{progress.date}}</h3>
+            <h3>Description: {{progress.description}}</h3>
+            <h3>Contribution to the main goal: {{progress.high_level_purpose}}</h3>
         </div>
         <br>
-        <div id="log_style">
-            <h3>Hours: {{progress_1.hours}}</h3>
-            <h3>Date: {{progress_1.date}}</h3>
-            <h3>Description: {{progress_1.description}}</h3>
-            <h3>Contribution to the main goal: {{progress_1.high_level_purpose}}</h3>
-        </div>
-        <br>
-        <div id="log_style">
-            <h3>Hours: {{progress_2.hours}}</h3>
-            <h3>Date: {{progress_2.date}}</h3>
-            <h3>Description: {{progress_2.description}}</h3>
-            <h3>Contribution to the main goal: {{progress_2.high_level_purpose}}</h3>
-        </div>
+        {% endfor %}
     </div>
 
     <div>
         <center><h2> Project Scoping </h2></center>
+        {% for scope_block in scoping_blocks %}
         <div id="scoping_style">
-            <h3>Phase {{scoping_0.phase_number}}: {{scoping_0.phase_name}} </h3>
-            <h3>Description: {{scoping_0.description}} </h3>
+            <h3>Phase {{scope_block.phase_number}}: {{scope_block.phase_name}} </h3>
+            <h3>Description: {{scope_block.description}} </h3>
         </div>
-        <div id="scoping_style">
-            <h3>Phase {{scoping_1.phase_number}}: {{scoping_1.phase_name}} </h3>
-            <h3>Description: {{scoping_1.description}} </h3>
-        </div>
-        <div id="scoping_style">
-            <h3>Phase {{scoping_2.phase_number}}: {{scoping_2.phase_name}} </h3>
-            <h3>Description: {{scoping_2.description}} </h3>
-        </div>
+        {% endfor %}
     </div>
 </body>
