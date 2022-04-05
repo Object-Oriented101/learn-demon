@@ -1,6 +1,6 @@
 from django.shortcuts import render
+from .forms import Progress_Form
 
-from django.shortcuts import render
 from projects.models import Progress_Block, Scoping_Block, Project
 import pandas as pd
 from plotly.offline import plot
@@ -35,3 +35,13 @@ def index(request):
 
     context = {'line_plot': line_plot, 'project_details': project_details, 'progress_blocks': progress_blocks, 'scoping_blocks' : scoping_blocks } 
     return render(request, 'index.html', context)
+
+
+def form_progress_block(request):
+    if request.method == 'POST':
+        form = Progress_Form(request.POST)
+        if form.is_valid():
+            form.save()
+    
+    form = Progress_Form()
+    return render(request, 'form_progress_log.html', {'form': form})

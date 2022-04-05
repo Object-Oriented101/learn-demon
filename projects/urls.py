@@ -1,10 +1,10 @@
 from django import views
 from django.urls import path
 
-
-from projects.views import * 
+from . import views
 
 
 urlpatterns = [
-    path('', index),
+    path('', views.index),
+    path('progress-block-addition', views.form_progress_block)
 ]
