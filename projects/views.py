@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .forms import Progress_Form
+from .forms import Progress_Form, Scoping_Form
 
 from projects.models import Progress_Block, Scoping_Block, Project
 import pandas as pd
@@ -45,3 +45,12 @@ def form_progress_block(request):
     
     form = Progress_Form()
     return render(request, 'form_progress_log.html', {'form': form})
+
+def form_scoping_block(request):
+    if request.method == 'POST':
+        form = Scoping_Form(request.POST)
+        if form.is_valid():
+            form.save()
+    
+    form = Scoping_Form()
+    return render(request, 'form_scoping.html', {'form': form})
