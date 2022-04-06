@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from .forms import Progress_Form, Scoping_Form
 
 from projects.models import Progress_Block, Scoping_Block, Project
@@ -42,7 +42,7 @@ def form_progress_block(request):
         form = Progress_Form(request.POST)
         if form.is_valid():
             form.save()
-    
+            return redirect('home')
     form = Progress_Form()
     return render(request, 'form_progress_log.html', {'form': form})
 
@@ -51,6 +51,7 @@ def form_scoping_block(request):
         form = Scoping_Form(request.POST)
         if form.is_valid():
             form.save()
+            return redirect('home')
     
     form = Scoping_Form()
     return render(request, 'form_scoping.html', {'form': form})

@@ -46,6 +46,7 @@
 
     <div>
         <h1>Progress Log</h1>
+        <a href="progress-block-addition">Add new work</a>
         {% for progress in progress_blocks %}
         <div id="progress_log_style">
             <h2>Scope: {{progress.scoping_phase}}</h2>
@@ -60,6 +61,8 @@
 
     <div>
         <center><h2> Project Scoping </h2></center>
+        <a href="scoping-block-addition">Add new work</a>
+        <br>
         {% for scope_block in scoping_blocks %}
         <div id="scoping_style">
             <h3>Phase {{scope_block.phase_number}}: {{scope_block.phase_name}} </h3>
