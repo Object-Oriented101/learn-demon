@@ -55,6 +55,7 @@
             <h3>Description: {{progress_block.description}}</h3>
             <h3>Contribution to the main goal: {{progress_block.high_level_purpose}}</h3>
             <a href="{% url 'update-progress' progress_block.id %}">Update</a>
+            <a href="{% url 'delete-progress' progress_block.id %}">Delete</a>
         </div>
         <br>
         {% endfor %}
@@ -69,6 +70,7 @@
             <h3>Phase {{scope_block.phase_number}}: {{scope_block.phase_name}} </h3>
             <h3>Description: {{scope_block.description}} </h3>
             <a href="{% url 'update-scoping' scope_block.id %}">Update</a>
+            <a href="{% url 'delete-scoping' scope_block.id %}">Delete</a>
         </div>
         {% endfor %}
     </div>

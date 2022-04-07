@@ -72,3 +72,13 @@ def update_scoping_block(request, scoping_block_id):
         form.save()
         return redirect('home')
     return render(request,'form_progress_update.html', {'scoping_block': scoping_block, 'form': form})
+
+def delete_progress_block(request, progress_block_id):
+    progress_block = Progress_Block.objects.get(pk=progress_block_id)
+    progress_block.delete()
+    return redirect('home')
+
+def delete_scoping_block(request, scoping_block_id):
+    scoping_block = Scoping_Block.objects.get(pk=scoping_block_id)
+    scoping_block.delete()
+    return redirect('home')
