@@ -55,3 +55,12 @@ def form_scoping_block(request):
     
     form = Scoping_Form()
     return render(request, 'form_scoping.html', {'form': form})
+
+
+def update_progress_block(request, progress_block_id):
+    progress_block = Progress_Block.objects.get(pk=progress_block_id)
+    form = Progress_Form(request.POST or None, instance=progress_block)
+    if form.is_valid():
+        form.save()
+        return redirect('home')
+    return render(request,'form_progress_update.html', {'progress_block': progress_block, 'form': form})

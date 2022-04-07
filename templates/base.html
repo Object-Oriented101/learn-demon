@@ -47,13 +47,14 @@
     <div>
         <h1>Progress Log</h1>
         <a href="progress-block-addition">Add new work</a>
-        {% for progress in progress_blocks %}
+        {% for progress_block in progress_blocks %}
         <div id="progress_log_style">
-            <h2>Scope: {{progress.scoping_phase}}</h2>
-            <h3>Hours: {{progress.hours}}</h3>
-            <h3>Date: {{progress.date}}</h3>
-            <h3>Description: {{progress.description}}</h3>
-            <h3>Contribution to the main goal: {{progress.high_level_purpose}}</h3>
+            <h2>Scope: {{progress_block.scoping_phase}}</h2>
+            <h3>Hours: {{progress_block.hours}}</h3>
+            <h3>Date: {{progress_block.date}}</h3>
+            <h3>Description: {{progress_block.description}}</h3>
+            <h3>Contribution to the main goal: {{progress_block.high_level_purpose}}</h3>
+            <a href="{% url 'update-progress' progress_block.id %}">Update</a>
         </div>
         <br>
         {% endfor %}
