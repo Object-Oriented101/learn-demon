@@ -64,3 +64,11 @@ def update_progress_block(request, progress_block_id):
         form.save()
         return redirect('home')
     return render(request,'form_progress_update.html', {'progress_block': progress_block, 'form': form})
+
+def update_scoping_block(request, scoping_block_id):
+    scoping_block = Scoping_Block.objects.get(pk=scoping_block_id)
+    form = Scoping_Form(request.POST or None, instance=scoping_block)
+    if form.is_valid():
+        form.save()
+        return redirect('home')
+    return render(request,'form_progress_update.html', {'scoping_block': scoping_block, 'form': form})

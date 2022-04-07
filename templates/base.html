@@ -68,6 +68,7 @@
         <div id="scoping_style">
             <h3>Phase {{scope_block.phase_number}}: {{scope_block.phase_name}} </h3>
             <h3>Description: {{scope_block.description}} </h3>
+            <a href="{% url 'update-scoping' scope_block.id %}">Update</a>
         </div>
         {% endfor %}
     </div>
