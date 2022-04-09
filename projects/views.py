@@ -1,15 +1,19 @@
 from django.shortcuts import redirect, render
-from .forms import Progress_Form, Scoping_Form
 
-from projects.models import Progress_Block, Scoping_Block, Project
+from .forms import High_Level_Task_Form, Progress_Form, Scoping_Form 
+
+from projects.models import Progress_Block, Scoping_Block, Project, High_Level_Task
 import pandas as pd
 from plotly.offline import plot
 import plotly.express as px
 
+#Add subtasks for the scope and figure out how to integrate it with progress blocks
+#Create a view for multiple projects``
+#BOOT STRAP TIME!
 
 def index(request):
 
-    #Line Graph Code
+    #Line Graph 
     progress_blocks = Progress_Block.objects.all()
 
     parsed_progress_blocks = [
@@ -31,12 +35,16 @@ def index(request):
 
     #Scoping Details passback
     scoping_blocks = Scoping_Block.objects.all() #ERROR CHECK IF EMPTY
+
+    #High-Level Tasks Details passback
+    high_level_task_list = High_Level_Task.objects.all()
     
 
-    context = {'line_plot': line_plot, 'project_details': project_details, 'progress_blocks': progress_blocks, 'scoping_blocks' : scoping_blocks } 
+    context = {'line_plot': line_plot, 'project_details': project_details, 'progress_blocks': progress_blocks, 
+    'scoping_blocks' : scoping_blocks, 'high_level_tasks': high_level_task_list } 
     return render(request, 'index.html', context)
 
-
+#Form to add a new progress to scop
 def form_progress_block(request):
     if request.method == 'POST':
         form = Progress_Form(request.POST)
@@ -46,6 +54,7 @@ def form_progress_block(request):
     form = Progress_Form()
     return render(request, 'form_progress_log.html', {'form': form})
 
+#Form to add a new scope block to a project
 def form_scoping_block(request):
     if request.method == 'POST':
         form = Scoping_Form(request.POST)
@@ -56,6 +65,15 @@ def form_scoping_block(request):
     form = Scoping_Form()
     return render(request, 'form_scoping.html', {'form': form})
 
+def form_high_level_task(request):
+    if request.method == 'POST':
+        form = High_Level_Task_Form(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    
+    form = High_Level_Task()
+    return render(request, 'form_high_leveL_task.html', {'form': form})
 
 def update_progress_block(request, progress_block_id):
     progress_block = Progress_Block.objects.get(pk=progress_block_id)

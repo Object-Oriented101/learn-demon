@@ -14,6 +14,7 @@ class Project(models.Model):
     def __str__(self):
         return str(self.name)
 
+
 class Scoping_Block(models.Model):
     phase_number = models.IntegerField()
     phase_name = models.CharField(max_length=1000)
@@ -23,12 +24,22 @@ class Scoping_Block(models.Model):
     def __str__(self):
         return str(self.phase_name)
 
+class High_Level_Task(models.Model):
+    task = models.CharField(max_length=200)
+    scope = models.ForeignKey(Scoping_Block, blank=True, null=True,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.task)
+
 class Progress_Block(models.Model):
     hours = models.DecimalField(max_digits = 4, decimal_places=2)
     date = models.DateField()
     description = models.CharField(max_length=1000)
     high_level_purpose = models.CharField(max_length=1000)
     scoping_phase = models.ForeignKey(Scoping_Block, blank=True, null=True, on_delete=models.CASCADE)
+    #scope_retrieve = Scoping_Block.objects.get(phase_name=scoping_phase.phase_name)
+    #high_level_task = models.ForeignKey(High_Level_Task, blank=True, null=True, on_delete=models.CASCADE, limit_choices_to={'scope_id': scope_retrieve.id})
+    high_level_task = models.ForeignKey(High_Level_Task, blank=True, null=True, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.date)

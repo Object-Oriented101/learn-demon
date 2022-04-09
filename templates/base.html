@@ -21,7 +21,7 @@
         
     #scoping_style{
         width: 400px;
-        height: 200px;
+        height: 400px;
         background: rgb(135, 152, 201);
         overflow: hidden;
         margin-right: 20%;
@@ -29,7 +29,7 @@
     }
 </style>
 <body>
-    <center><h1>Entrepreneur's Dashboard</h1></center>
+    <center><h1>Dashboard</h1></center>
     <div>
             {% block work_graph %}
             {% endblock work_graph %}
@@ -69,6 +69,13 @@
         <div id="scoping_style">
             <h3>Phase {{scope_block.phase_number}}: {{scope_block.phase_name}} </h3>
             <h3>Description: {{scope_block.description}} </h3>
+            <p>High Level Tasks</p>
+            <a href="create-task">Create Task</a>
+            {% for high_level_task in high_level_tasks %}
+                {% if high_level_task.scope == scope_block %}
+                    <p>{{high_level_task.task}}</p>
+                {% endif %}
+            {% endfor %}
             <a href="{% url 'update-scoping' scope_block.id %}">Update</a>
             <a href="{% url 'delete-scoping' scope_block.id %}">Delete</a>
         </div>
