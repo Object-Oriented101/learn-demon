@@ -53,7 +53,7 @@
             <h3>Hours: {{progress_block.hours}}</h3>
             <h3>Date: {{progress_block.date}}</h3>
             <h3>Description: {{progress_block.description}}</h3>
-            <h3>Contribution to the main goal: {{progress_block.high_level_purpose}}</h3>
+            <h3>Contribution to the main goal: {{progress_block.high_level_task}}</h3>
             <a href="{% url 'update-progress' progress_block.id %}">Update</a>
             <a href="{% url 'delete-progress' progress_block.id %}">Delete</a>
         </div>
