@@ -65,7 +65,9 @@ def form_scoping_block(request):
     form = Scoping_Form()
     return render(request, 'form_scoping.html', {'form': form})
 
-def form_high_level_task(request):
+def create_high_level_task(request):
+    #scope_block = scope_block.objects.get(pk=scope_block_id)
+    #form = High_Level_Task_Form(request.POST or None, instance=scope_block)
     if request.method == 'POST':
         form = High_Level_Task_Form(request.POST)
         if form.is_valid():
@@ -73,6 +75,14 @@ def form_high_level_task(request):
             return redirect('home')
     
     form = High_Level_Task_Form()
+    return render(request, 'form_high_leveL_task.html', {'form': form})
+
+def update_high_level_task(request, high_level_task_id):
+    task = High_Level_Task.objects.get(pk=high_level_task_id)
+    form = High_Level_Task_Form(request.POST or None, instance=task)
+    if form.is_valid():
+        form.save()
+        return redirect('home')
     return render(request, 'form_high_leveL_task.html', {'form': form})
 
 def update_progress_block(request, progress_block_id):

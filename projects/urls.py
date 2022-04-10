@@ -8,7 +8,8 @@ urlpatterns = [
     path('', views.index, name='home'),
     path('progress-block-addition', views.form_progress_block),
     path('scoping-block-addition', views.form_scoping_block),
-    path('create-task', views.form_high_level_task),
+    path('high-level-task/', views.create_high_level_task, name='new-task'),
+    path('update-task/<high_level_task_id>', views.update_high_level_task, name='update-task'),
 
     path('progress-block-update/<progress_block_id>', views.update_progress_block, name='update-progress'),
     path('scoping-block-update/<scoping_block_id>', views.update_scoping_block, name='update-scoping'),

@@ -69,11 +69,12 @@
         <div id="scoping_style">
             <h3>Phase {{scope_block.phase_number}}: {{scope_block.phase_name}} </h3>
             <h3>Description: {{scope_block.description}} </h3>
+
             <p>High Level Tasks</p>
-            <a href="create-task">Create Task</a>
+            <a href="high-level-task">Create Task</a>
             {% for high_level_task in high_level_tasks %}
                 {% if high_level_task.scope == scope_block %}
-                    <p>{{high_level_task.task}}</p>
+                    <p>{{high_level_task.task}}<a href="{% url 'update-task' high_level_task.id %}"> UPDATE</a></p>
                 {% endif %}
             {% endfor %}
             <a href="{% url 'update-scoping' scope_block.id %}">Update</a>
