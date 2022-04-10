@@ -72,7 +72,7 @@ def form_high_level_task(request):
             form.save()
             return redirect('home')
     
-    form = High_Level_Task()
+    form = High_Level_Task_Form()
     return render(request, 'form_high_leveL_task.html', {'form': form})
 
 def update_progress_block(request, progress_block_id):
