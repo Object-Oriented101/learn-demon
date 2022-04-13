@@ -53,44 +53,49 @@ href="{% static 'projects/css/bootstrap.css' %}"
     <div class = "container-fluid">
         <div class="row" style="height: 2000px">
             <div class="col">
-                <h1>Progress Log</h1>
+                <center><h2>Progress Log</h2></center>
                 <a class="btn btn-primary btn-lg btn-block" href="progress-block-addition">Add new work</a>
 
                 <br>
                 <br>
 
                 {% for progress_block in progress_blocks %}
-                <div id="progress_log_style">
-                    <h2>Scope: {{progress_block.scoping_phase}}</h2>
-                    <h3>Hours: {{progress_block.hours}}</h3>
-                    <h3>Date: {{progress_block.date}}</h3>
-                    <h3>Description: {{progress_block.description}}</h3>
-                    <h3>Contribution to the main goal: {{progress_block.high_level_task}}</h3>
-                    <a class="btn btn-outline-warning" href="{% url 'update-progress' progress_block.id %}">Update</a>
-                    <a class="btn btn-outline-danger" href="{% url 'delete-progress' progress_block.id %}">Delete</a>
+                <div class="card bg-secondary" >
+                    <div class="card-body text-white">
+                        <h2 class="card-title">{{progress_block.description}}</h2>
+                        <h4 class="card-subtitle mb-2">Hours: {{progress_block.hours}}</h4>
+                        <p>Date: {{progress_block.date}}</p>
+                        <p>Contribution to {{progress_block.scoping_phase}}: {{progress_block.high_level_task}}</p>
+                        <a class="btn btn-outline-warning" href="{% url 'update-progress' progress_block.id %}">Update</a>
+                        <a class="btn btn-outline-danger" href="{% url 'delete-progress' progress_block.id %}">Delete</a>
+                    </div>
                 </div>
                 <br>
                 {% endfor %}
             </div>
             <div class="col border">
                 <center><h2> Project Scoping </h2></center>
-                <a href="scoping-block-addition">Add new work</a>
+                <a class="btn btn-primary btn-lg btn-block" href="scoping-block-addition">Add new scope block</a>
+                <br>
                 <br>
                 {% for scope_block in scoping_blocks %}
-                <div id="scoping_style">
-                    <h3>Phase {{scope_block.phase_number}}: {{scope_block.phase_name}} </h3>
-                    <h3>Description: {{scope_block.description}} </h3>
+                <div class="card bg-secondary">
+                    <div class="card-body text-white">
+                        <h3 class="card-title">Phase {{scope_block.phase_number}}: {{scope_block.phase_name}} </h3>
+                        <a class="btn btn-outline-warning pull-right" href="{% url 'update-scoping' scope_block.id %}">Update</a>
+                        <a class="btn btn-outline-danger" href="{% url 'delete-scoping' scope_block.id %}">Delete</a>
+                        <h5>Description: {{scope_block.description}} </h5>
 
-                    <p>High Level Tasks</p>
-                    <a href="high-level-task">Create Task</a>
-                    {% for high_level_task in high_level_tasks %}
-                        {% if high_level_task.scope == scope_block %}
-                            <p>{{high_level_task.task}}<a href="{% url 'update-task' high_level_task.id %}"> UPDATE</a></p>
-                        {% endif %}
-                    {% endfor %}
-                    <a href="{% url 'update-scoping' scope_block.id %}">Update</a>
-                    <a href="{% url 'delete-scoping' scope_block.id %}">Delete</a>
+                        <h5>High Level Tasks: </h5>
+                        {% for high_level_task in high_level_tasks %}
+                            {% if high_level_task.scope == scope_block %}
+                                <p>-{{high_level_task.task}} <a class="btn btn-outline-light" href="{% url 'update-task' high_level_task.id %}"> UPDATE</a></p>
+                            {% endif %}
+                        {% endfor %}
+                        <a class="btn btn-success" href="high-level-task">Create Task</a>
+                    </div>
                 </div>
+                <br>
                 {% endfor %}
             </div>
         </div>
