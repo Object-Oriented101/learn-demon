@@ -1,22 +1,21 @@
 <!DOCTYPE html>
+{% load static %}
 
+
+<link
+rel="stylesheet"
+type="text/css"
+href="{% static 'projects/css/bootstrap.css' %}"
+/>
 <style>
-    html, body {
-        height: 100%;
-        width: 100%;
-    }
-    div {
-        width: 50%;
-        height: 50%;
-        float: left;
-    }
 
     #progress_log_style {
         width: 800px;
         height: 250px;
-        background: rgb(227, 137, 137);
+        background: rgb(63, 104, 67);
         overflow: hidden;
         margin-bottom: 7%;
+        color: rgba(247, 247, 247, 0.902);
     }
         
     #scoping_style{
@@ -30,57 +29,70 @@
 </style>
 <body>
     <center><h1>Dashboard</h1></center>
-    <div>
-            {% block work_graph %}
-            {% endblock work_graph %}
-    </div>
+    
+    <div class="container-fluid border">
+        <div class="row" style="height: 500px">
+            <div class="col">
+                {% block work_graph %}
+                {% endblock work_graph %}
+            </div>
 
-    <div>
-        <center><h2>Current Project: {{project_details.name}} </h2></center>
-        <h3>Problem Statemant: {{project_details.problem_statemant}} </h3>
-        <h3>My unfair advantage: {{project_details.unfair_advantage}} </h3>
-        <h3>Audience to monopolize: {{project_details.target_audience}} </h3>
-        <h3>Number of customers: {{project_details.num_of_customers}} </h3>
-        <h3>Revenue: ${{project_details.revenue}} </h3>
-    </div>
-
-    <div>
-        <h1>Progress Log</h1>
-        <a href="progress-block-addition">Add new work</a>
-        {% for progress_block in progress_blocks %}
-        <div id="progress_log_style">
-            <h2>Scope: {{progress_block.scoping_phase}}</h2>
-            <h3>Hours: {{progress_block.hours}}</h3>
-            <h3>Date: {{progress_block.date}}</h3>
-            <h3>Description: {{progress_block.description}}</h3>
-            <h3>Contribution to the main goal: {{progress_block.high_level_task}}</h3>
-            <a href="{% url 'update-progress' progress_block.id %}">Update</a>
-            <a href="{% url 'delete-progress' progress_block.id %}">Delete</a>
+            <div class="col">
+                <center><h2>Current Project: {{project_details.name}} </h2></center>
+                <h3>Problem Statemant: {{project_details.problem_statemant}} </h3>
+                <h3>My unfair advantage: {{project_details.unfair_advantage}} </h3>
+                <h3>Audience to monopolize: {{project_details.target_audience}} </h3>
+                <h3>Number of customers: {{project_details.num_of_customers}} </h3>
+                <h3>Revenue: ${{project_details.revenue}} </h3>
+            </div>
         </div>
-        <br>
-        {% endfor %}
-
     </div>
 
-    <div>
-        <center><h2> Project Scoping </h2></center>
-        <a href="scoping-block-addition">Add new work</a>
-        <br>
-        {% for scope_block in scoping_blocks %}
-        <div id="scoping_style">
-            <h3>Phase {{scope_block.phase_number}}: {{scope_block.phase_name}} </h3>
-            <h3>Description: {{scope_block.description}} </h3>
 
-            <p>High Level Tasks</p>
-            <a href="high-level-task">Create Task</a>
-            {% for high_level_task in high_level_tasks %}
-                {% if high_level_task.scope == scope_block %}
-                    <p>{{high_level_task.task}}<a href="{% url 'update-task' high_level_task.id %}"> UPDATE</a></p>
-                {% endif %}
-            {% endfor %}
-            <a href="{% url 'update-scoping' scope_block.id %}">Update</a>
-            <a href="{% url 'delete-scoping' scope_block.id %}">Delete</a>
+
+    <div class = "container-fluid">
+        <div class="row" style="height: 2000px">
+            <div class="col">
+                <h1>Progress Log</h1>
+                <a class="btn btn-primary btn-lg btn-block" href="progress-block-addition">Add new work</a>
+
+                <br>
+                <br>
+
+                {% for progress_block in progress_blocks %}
+                <div id="progress_log_style">
+                    <h2>Scope: {{progress_block.scoping_phase}}</h2>
+                    <h3>Hours: {{progress_block.hours}}</h3>
+                    <h3>Date: {{progress_block.date}}</h3>
+                    <h3>Description: {{progress_block.description}}</h3>
+                    <h3>Contribution to the main goal: {{progress_block.high_level_task}}</h3>
+                    <a class="btn btn-outline-warning" href="{% url 'update-progress' progress_block.id %}">Update</a>
+                    <a class="btn btn-outline-danger" href="{% url 'delete-progress' progress_block.id %}">Delete</a>
+                </div>
+                <br>
+                {% endfor %}
+            </div>
+            <div class="col border">
+                <center><h2> Project Scoping </h2></center>
+                <a href="scoping-block-addition">Add new work</a>
+                <br>
+                {% for scope_block in scoping_blocks %}
+                <div id="scoping_style">
+                    <h3>Phase {{scope_block.phase_number}}: {{scope_block.phase_name}} </h3>
+                    <h3>Description: {{scope_block.description}} </h3>
+
+                    <p>High Level Tasks</p>
+                    <a href="high-level-task">Create Task</a>
+                    {% for high_level_task in high_level_tasks %}
+                        {% if high_level_task.scope == scope_block %}
+                            <p>{{high_level_task.task}}<a href="{% url 'update-task' high_level_task.id %}"> UPDATE</a></p>
+                        {% endif %}
+                    {% endfor %}
+                    <a href="{% url 'update-scoping' scope_block.id %}">Update</a>
+                    <a href="{% url 'delete-scoping' scope_block.id %}">Delete</a>
+                </div>
+                {% endfor %}
+            </div>
         </div>
-        {% endfor %}
     </div>
 </body>
