@@ -7,9 +7,13 @@ import pandas as pd
 from plotly.offline import plot
 import plotly.express as px
 
-#Add subtasks for the scope and figure out how to integrate it with progress blocks
-#Create a view for multiple projects``
-#BOOT STRAP TIME!
+#Finish bootstrap touches to make it look pretty nice (Make projects nicer, move update/delete button for Scope, make graph bigger and themed, make cards smaller with padding)
+#Add support for multiple projects (add projects, delete, edit descriptions) and switch between them
+#Clean up the little things
+#   -Subtasks filtered by scope
+#   -Graph is only in ascending order
+#   -recheck the models (remove phase number?)
+#Login for different users...
 
 def index(request):
 

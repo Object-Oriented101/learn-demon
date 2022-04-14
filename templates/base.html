@@ -31,19 +31,21 @@ href="{% static 'projects/css/bootstrap.css' %}"
     <center><h1>Dashboard</h1></center>
     
     <div class="container-fluid border">
-        <div class="row" style="height: 500px">
+        <div class="row mt-5" style="height: 500px">
             <div class="col">
                 {% block work_graph %}
                 {% endblock work_graph %}
             </div>
 
             <div class="col">
-                <center><h2>Current Project: {{project_details.name}} </h2></center>
-                <h3>Problem Statemant: {{project_details.problem_statemant}} </h3>
-                <h3>My unfair advantage: {{project_details.unfair_advantage}} </h3>
-                <h3>Audience to monopolize: {{project_details.target_audience}} </h3>
-                <h3>Number of customers: {{project_details.num_of_customers}} </h3>
-                <h3>Revenue: ${{project_details.revenue}} </h3>
+                <div class="card bg-secondary text-white">
+                    <center><h2>Current Project: {{project_details.name}} </h2></center>
+                    <p style="font-size:25px;">Problem Statemant: {{project_details.problem_statemant}} </p>
+                    <p style="font-size:25px;">My unfair advantage: {{project_details.unfair_advantage}} </p>
+                    <p style="font-size:25px;">Audience to monopolize: {{project_details.target_audience}} </p>
+                    <p style="font-size:25px;">Number of customers: {{project_details.num_of_customers}} </p>
+                    <p style="font-size:25px;">Revenue: ${{project_details.revenue}} </p>
+                </div>
             </div>
         </div>
     </div>
@@ -51,16 +53,16 @@ href="{% static 'projects/css/bootstrap.css' %}"
 
 
     <div class = "container-fluid">
-        <div class="row" style="height: 2000px">
+        <div class="row mt-5" style="height: 2000px">
             <div class="col">
-                <center><h2>Progress Log</h2></center>
+                <center><h1>Progress Log</h1></center>
                 <a class="btn btn-primary btn-lg btn-block" href="progress-block-addition">Add new work</a>
 
                 <br>
                 <br>
 
                 {% for progress_block in progress_blocks %}
-                <div class="card bg-secondary" >
+                <div class="card bg-danger" >
                     <div class="card-body text-white">
                         <h2 class="card-title">{{progress_block.description}}</h2>
                         <h4 class="card-subtitle mb-2">Hours: {{progress_block.hours}}</h4>
@@ -73,26 +75,26 @@ href="{% static 'projects/css/bootstrap.css' %}"
                 <br>
                 {% endfor %}
             </div>
-            <div class="col border">
-                <center><h2> Project Scoping </h2></center>
+            <div class="col">
+                <center><h1> Project Scoping </h1></center>
                 <a class="btn btn-primary btn-lg btn-block" href="scoping-block-addition">Add new scope block</a>
                 <br>
                 <br>
                 {% for scope_block in scoping_blocks %}
                 <div class="card bg-secondary">
                     <div class="card-body text-white">
-                        <h3 class="card-title">Phase {{scope_block.phase_number}}: {{scope_block.phase_name}} </h3>
-                        <a class="btn btn-outline-warning pull-right" href="{% url 'update-scoping' scope_block.id %}">Update</a>
-                        <a class="btn btn-outline-danger" href="{% url 'delete-scoping' scope_block.id %}">Delete</a>
-                        <h5>Description: {{scope_block.description}} </h5>
+                        <h1 class="card-title display-6">Phase {{scope_block.phase_number}}: {{scope_block.phase_name}} </h1>
+                        <p style="font-size: 20px;">Description: {{scope_block.description}} </p=>
 
-                        <h5>High Level Tasks: </h5>
+                        <h4>High Level Tasks: </h4>
                         {% for high_level_task in high_level_tasks %}
                             {% if high_level_task.scope == scope_block %}
-                                <p>-{{high_level_task.task}} <a class="btn btn-outline-light" href="{% url 'update-task' high_level_task.id %}"> UPDATE</a></p>
+                                <li style="font-size:20px">{{high_level_task.task}} <a class="btn btn-outline-light" href="{% url 'update-task' high_level_task.id %}"> UPDATE</a></li>
                             {% endif %}
                         {% endfor %}
                         <a class="btn btn-success" href="high-level-task">Create Task</a>
+                        <a class="btn btn-outline-warning pull-right" href="{% url 'update-scoping' scope_block.id %}">Update</a>
+                        <a class="btn btn-outline-danger" href="{% url 'delete-scoping' scope_block.id %}">Delete</a>
                     </div>
                 </div>
                 <br>
