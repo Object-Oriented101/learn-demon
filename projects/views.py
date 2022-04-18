@@ -15,6 +15,40 @@ import plotly.express as px
 #   -make progress logs in ascending order
 #Login for different users...
 
+def project(request, project_id):
+
+    #Line Graph 
+    progress_blocks = Progress_Block.objects.filter(project_id=project_id)
+
+    parsed_progress_blocks = [
+        {
+        'Hours': i.hours,
+        'Date': i.date,
+        'Description': i.description
+        } for i in progress_blocks
+    ] 
+
+    df_progress_block = pd.DataFrame(parsed_progress_blocks)
+    line_fig = px.line(df_progress_block, x = "Date", y = "Hours", text="Date", template="plotly_white", width=900, height=400)
+    line_fig.update_traces(textposition="bottom right")
+    line_plot = plot(line_fig, output_type="div")
+
+    #Project Details passback
+    project_retrieval = Project.objects.filter(pk=project_id) #ERROR CHECK IF EMPTY
+    project_details = project_retrieval[0]
+
+    #Scoping Details passback
+    scoping_blocks = Scoping_Block.objects.filter(project_id=project_id) #ERROR CHECK IF EMPTY
+
+    #High-Level Tasks Details passback
+    high_level_task_list = High_Level_Task.objects.filter(project_id=project_id)
+    print(project_details.id)
+    
+
+    context = {'line_plot': line_plot, 'project_details': project_details, 'progress_blocks': progress_blocks, 
+    'scoping_blocks' : scoping_blocks, 'high_level_tasks': high_level_task_list } 
+    return render(request, 'index.html', context)
+
 def index(request):
 
     #Line Graph 
@@ -42,6 +76,7 @@ def index(request):
 
     #High-Level Tasks Details passback
     high_level_task_list = High_Level_Task.objects.all()
+    print(project_details.id)
     
 
     context = {'line_plot': line_plot, 'project_details': project_details, 'progress_blocks': progress_blocks, 
