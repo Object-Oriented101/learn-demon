@@ -1,6 +1,13 @@
 from django import forms
 
-from .models import Progress_Block, Scoping_Block, High_Level_Task
+from .models import Project, Progress_Block, Scoping_Block, High_Level_Task
+
+
+class Project_Form(forms.ModelForm):
+
+    class Meta:
+        model = Project
+        fields = '__all__' 
 
 class Progress_Form(forms.ModelForm):
 

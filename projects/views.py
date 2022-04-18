@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render
 
-from .forms import High_Level_Task_Form, Progress_Form, Scoping_Form 
+from .forms import Project_Form, High_Level_Task_Form, Progress_Form, Scoping_Form 
 
 from projects.models import Progress_Block, Scoping_Block, Project, High_Level_Task
 import pandas as pd
@@ -55,7 +55,6 @@ def index(request):
     context = {'projects': project_retrieval}
     return render(request, 'index.html', context)
 
-#Form to add a new progress to scop
 def form_progress_block(request, project_id):
     if request.method == 'POST':
         form = Progress_Form(request.POST)
@@ -65,7 +64,6 @@ def form_progress_block(request, project_id):
     form = Progress_Form()
     return render(request, 'form_progress_log.html', {'form': form})
 
-#Form to add a new scope block to a project
 def form_scoping_block(request, project_id):
     if request.method == 'POST':
         form = Scoping_Form(request.POST)
@@ -89,6 +87,14 @@ def create_high_level_task(request, project_id):
     return render(request, 'form_high_leveL_task.html', {'form': form})
 
 #UPDATE-------------------------
+def update_project(request, project_id):
+    project = Project.objects.get(pk=project_id)
+    form = Project_Form(request.POST or None, instance=project)
+    if form.is_valid():
+        form.save()
+        return redirect('home')
+    return render(request, 'form_project.html', {'form': form})
+
 def update_high_level_task(request, high_level_task_id):
     task = High_Level_Task.objects.get(pk=high_level_task_id)
     form = High_Level_Task_Form(request.POST or None, instance=task)

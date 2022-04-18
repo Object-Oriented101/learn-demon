@@ -47,6 +47,7 @@ href="{% static 'projects/css/bootstrap.css' %}"
             <div class="col">
                 <div class="card text-white" style="background-color:rgb(43, 147, 199);">
                     <center><h2>Current Project: {{project_details.name}} </h2></center>
+                    <a class="btn btn-outline-warning" href="{% url 'update-project' project_details.id %}">Update</a>
                     <p style="font-size:25px;">Problem Statemant: {{project_details.problem_statemant}} </p>
                     <p style="font-size:25px;">My unfair advantage: {{project_details.unfair_advantage}} </p>
                     <p style="font-size:25px;">Audience to monopolize: {{project_details.target_audience}} </p>

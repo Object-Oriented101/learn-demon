@@ -12,6 +12,7 @@ urlpatterns = [
     path('scoping-block-addition/<project_id>', views.form_scoping_block, name='add-scope-block'),
     path('high-level-task-addition/<project_id>', views.create_high_level_task, name='add-task'),
 
+    path('update-project/<project_id>', views.update_project, name='update-project'),
     path('update-task/<high_level_task_id>', views.update_high_level_task, name='update-task'),
     path('progress-block-update/<progress_block_id>', views.update_progress_block, name='update-progress'),
     path('scoping-block-update/<scoping_block_id>', views.update_scoping_block, name='update-scoping'),
