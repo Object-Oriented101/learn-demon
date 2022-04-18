@@ -31,14 +31,17 @@ href="{% static 'projects/css/bootstrap.css' %}"
     <center><h1>Dashboard</h1></center>
     
     <div class="container-fluid border">
-        <div class="row mt-5" style="height: 500px">
+        <div class="row mt-5" style="height: 500px;">
             <div class="col">
-                {% block work_graph %}
-                {% endblock work_graph %}
+                <center><h1> Daily Work Output</h1></center>
+                <center>
+                    {% block work_graph %}
+                    {% endblock work_graph %}
+                </center>
             </div>
 
             <div class="col">
-                <div class="card bg-secondary text-white">
+                <div class="card text-white" style="background-color:rgb(43, 147, 199);">
                     <center><h2>Current Project: {{project_details.name}} </h2></center>
                     <p style="font-size:25px;">Problem Statemant: {{project_details.problem_statemant}} </p>
                     <p style="font-size:25px;">My unfair advantage: {{project_details.unfair_advantage}} </p>
@@ -54,7 +57,7 @@ href="{% static 'projects/css/bootstrap.css' %}"
 
     <div class = "container-fluid">
         <div class="row mt-5" style="height: 2000px">
-            <div class="col">
+            <div class="col-md-6">
                 <center><h1>Progress Log</h1></center>
                 <a class="btn btn-primary btn-lg btn-block" href="progress-block-addition">Add new work</a>
 
@@ -62,8 +65,8 @@ href="{% static 'projects/css/bootstrap.css' %}"
                 <br>
 
                 {% for progress_block in progress_blocks %}
-                <div class="card bg-danger" >
-                    <div class="card-body text-white">
+                <div class="card" style="background-color: rgb(46, 92, 39);" >
+                    <div class="card-body text-white" >
                         <h2 class="card-title">{{progress_block.description}}</h2>
                         <h4 class="card-subtitle mb-2">Hours: {{progress_block.hours}}</h4>
                         <p>Date: {{progress_block.date}}</p>
@@ -83,7 +86,11 @@ href="{% static 'projects/css/bootstrap.css' %}"
                 {% for scope_block in scoping_blocks %}
                 <div class="card bg-secondary">
                     <div class="card-body text-white">
-                        <h1 class="card-title display-6">Phase {{scope_block.phase_number}}: {{scope_block.phase_name}} </h1>
+                        <h1 class="card-title display-6">Phase {{scope_block.phase_number}}: {{scope_block.phase_name}} 
+                        <a class="btn btn-outline-danger" style="float:right" href="{% url 'delete-scoping' scope_block.id %}">Delete</a> 
+                        <a class="btn btn-outline-warning" style="float:right" href="{% url 'update-scoping' scope_block.id %}">Update</a>
+                        </h1>
+
                         <p style="font-size: 20px;">Description: {{scope_block.description}} </p=>
 
                         <h4>High Level Tasks: </h4>
@@ -93,8 +100,6 @@ href="{% static 'projects/css/bootstrap.css' %}"
                             {% endif %}
                         {% endfor %}
                         <a class="btn btn-success" href="high-level-task">Create Task</a>
-                        <a class="btn btn-outline-warning pull-right" href="{% url 'update-scoping' scope_block.id %}">Update</a>
-                        <a class="btn btn-outline-danger" href="{% url 'delete-scoping' scope_block.id %}">Delete</a>
                     </div>
                 </div>
                 <br>

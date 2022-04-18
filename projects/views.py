@@ -7,12 +7,13 @@ import pandas as pd
 from plotly.offline import plot
 import plotly.express as px
 
-#Finish bootstrap touches to make it look pretty nice (Make projects nicer, move update/delete button for Scope, make graph bigger and themed, make cards smaller with padding)
+#Finish bootstrap touches to make it look pretty nice (make cards smaller with padding)
 #Add support for multiple projects (add projects, delete, edit descriptions) and switch between them
 #Clean up the little things
 #   -Subtasks filtered by scope
-#   -Graph is only in ascending order
+#   -Ensure graph is only in ascending order
 #   -recheck the models (remove phase number?)
+#   -make progress logs in ascending order
 #Login for different users...
 
 def index(request):
@@ -29,7 +30,7 @@ def index(request):
     ] 
 
     df_progress_block = pd.DataFrame(parsed_progress_blocks)
-    line_fig = px.line(df_progress_block, x = "Date", y = "Hours", title = "Daily Progress", text="Date", width=800, height=400)
+    line_fig = px.line(df_progress_block, x = "Date", y = "Hours", text="Date", template="plotly_white", width=900, height=400)
     line_fig.update_traces(textposition="bottom right")
     line_plot = plot(line_fig, output_type="div")
 
