@@ -50,15 +50,13 @@ def project(request, project_id):
     return render(request, 'project_view.html', context)
 
 def index(request):
-
-    
     project_retrieval = Project.objects.all() #ERROR CHECK IF EMPTY
 
     context = {'projects': project_retrieval}
     return render(request, 'index.html', context)
 
 #Form to add a new progress to scop
-def form_progress_block(request):
+def form_progress_block(request, project_id):
     if request.method == 'POST':
         form = Progress_Form(request.POST)
         if form.is_valid():
@@ -68,7 +66,7 @@ def form_progress_block(request):
     return render(request, 'form_progress_log.html', {'form': form})
 
 #Form to add a new scope block to a project
-def form_scoping_block(request):
+def form_scoping_block(request, project_id):
     if request.method == 'POST':
         form = Scoping_Form(request.POST)
         if form.is_valid():
@@ -78,7 +76,7 @@ def form_scoping_block(request):
     form = Scoping_Form()
     return render(request, 'form_scoping.html', {'form': form})
 
-def create_high_level_task(request):
+def create_high_level_task(request, project_id):
     #scope_block = scope_block.objects.get(pk=scope_block_id)
     #form = High_Level_Task_Form(request.POST or None, instance=scope_block)
     if request.method == 'POST':
@@ -90,6 +88,7 @@ def create_high_level_task(request):
     form = High_Level_Task_Form()
     return render(request, 'form_high_leveL_task.html', {'form': form})
 
+#UPDATE-------------------------
 def update_high_level_task(request, high_level_task_id):
     task = High_Level_Task.objects.get(pk=high_level_task_id)
     form = High_Level_Task_Form(request.POST or None, instance=task)
@@ -114,6 +113,8 @@ def update_scoping_block(request, scoping_block_id):
         return redirect('home')
     return render(request,'form_progress_update.html', {'scoping_block': scoping_block, 'form': form})
 
+
+#DELETION-----------------
 def delete_progress_block(request, progress_block_id):
     progress_block = Progress_Block.objects.get(pk=progress_block_id)
     progress_block.delete()
