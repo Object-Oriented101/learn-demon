@@ -7,7 +7,7 @@ import pandas as pd
 from plotly.offline import plot
 import plotly.express as px
 
-#Add support for multiple projects (add projects, delete, edit descriptions) 
+#Add support for multiple projects (add projects, delete) 
 #Clean up the little things
 #   -Subtasks filtered by scope
 #   -Ensure graph is only in ascending order
@@ -55,6 +55,16 @@ def index(request):
     context = {'projects': project_retrieval}
     return render(request, 'index.html', context)
 
+#Creation Code
+def form_project(request):
+    if request.method == 'POST':
+        form = Project_Form(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')
+    form = Project_Form()
+    return render(request, 'form_project.html', {'form': form})
+
 def form_progress_block(request, project_id):
     if request.method == 'POST':
         form = Progress_Form(request.POST)
@@ -93,7 +103,7 @@ def update_project(request, project_id):
     if form.is_valid():
         form.save()
         return redirect('home')
-    return render(request, 'form_project.html', {'form': form})
+    return render(request, 'form_project_update.html', {'form': form})
 
 def update_high_level_task(request, high_level_task_id):
     task = High_Level_Task.objects.get(pk=high_level_task_id)

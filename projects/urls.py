@@ -8,6 +8,7 @@ urlpatterns = [
     path('', views.index, name='home'),
     path('<project_id>', views.project, name='home'),
 
+    path('project-addition/', views.form_project, name='add-project'),
     path('progress-block-addition/<project_id>', views.form_progress_block, name='add-progress-block'),
     path('scoping-block-addition/<project_id>', views.form_scoping_block, name='add-scope-block'),
     path('high-level-task-addition/<project_id>', views.create_high_level_task, name='add-task'),

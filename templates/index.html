@@ -28,8 +28,9 @@ href="{% static 'projects/css/bootstrap.css' %}"
     }
 </style>
 <body>
-    <center><h1>Dashboard</h1></center>
-    
+    <center><h1>Dashboard</h1>
+    <a class="btn btn-warning" href="{% url 'add-project' %}">Create new project</a>
+    </center>
     <div class="container-fluid border">
          <div class="row mt-5" style="height: 500px;">
             {% for project in projects %}
