@@ -28,6 +28,7 @@ href="{% static 'projects/css/bootstrap.css' %}"
     }
 </style>
 <body>
+    <a class="btn btn-primary" href="/"> Home </a>
     <center><h1>Dashboard</h1></center>
     
     <div class="container-fluid border">
@@ -36,6 +37,9 @@ href="{% static 'projects/css/bootstrap.css' %}"
                 <center><h1> Daily Work Output</h1></center>
                 <center>
                     {% block work_graph %}
+                        {% autoescape off %}
+                        {{line_plot}}
+                        {% endautoescape %}
                     {% endblock work_graph %}
                 </center>
             </div>

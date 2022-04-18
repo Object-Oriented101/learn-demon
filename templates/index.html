@@ -1,7 +1,51 @@
-{% extends 'base.html' %}
-{% block work_graph %}
+<!DOCTYPE html>
+{% load static %}
 
-    {% autoescape off %}
-    {{line_plot}}
-    {% endautoescape %}
-{% endblock work_graph %}
+
+<link
+rel="stylesheet"
+type="text/css"
+href="{% static 'projects/css/bootstrap.css' %}"
+/>
+<style>
+
+    #progress_log_style {
+        width: 800px;
+        height: 250px;
+        background: rgb(63, 104, 67);
+        overflow: hidden;
+        margin-bottom: 7%;
+        color: rgba(247, 247, 247, 0.902);
+    }
+        
+    #scoping_style{
+        width: 400px;
+        height: 400px;
+        background: rgb(135, 152, 201);
+        overflow: hidden;
+        margin-right: 20%;
+        margin-bottom: 3%;
+    }
+</style>
+<body>
+    <center><h1>Dashboard</h1></center>
+    
+    <div class="container-fluid border">
+         <div class="row mt-5" style="height: 500px;">
+            {% for project in projects %}
+             <div class="col">
+                 <div class="card text-white" style="background-color:rgb(48, 98, 205);">
+                     <center><h2>{{project.name}} </h2></center>
+                     <p style="font-size:18px;">Problem Statemant: {{project.problem_statemant}} </p>
+                     <a class="btn btn-secondary" href="/{{project.id}}">Go to dashboard!</a>
+                 </div>
+             </div>
+             {% endfor %}
+         </div>
+     </div>
+
+
+
+
+    
+</body>
