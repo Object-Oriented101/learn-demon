@@ -7,7 +7,6 @@ import pandas as pd
 from plotly.offline import plot
 import plotly.express as px
 
-#Finish bootstrap touches to make it look pretty nice (make cards smaller with padding)
 #Add support for multiple projects (add projects, delete, edit descriptions) and switch between them
 #Clean up the little things
 #   -Subtasks filtered by scope
