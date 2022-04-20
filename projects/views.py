@@ -7,12 +7,12 @@ import pandas as pd
 from plotly.offline import plot
 import plotly.express as px
 
-#Add support for multiple projects (add projects, delete) 
 #Clean up the little things
 #   -Subtasks filtered by scope
 #   -Ensure graph is only in ascending order
 #   -recheck the models (remove phase number?)
 #   -make progress logs in ascending order
+#   -warning sign hen deleting
 #Login for different users...
 
 def project(request, project_id):
@@ -29,7 +29,12 @@ def project(request, project_id):
     ] 
 
     df_progress_block = pd.DataFrame(parsed_progress_blocks)
-    line_fig = px.line(df_progress_block, x = "Date", y = "Hours", text="Date", template="plotly_white", width=900, height=400)
+    line_fig = 0;
+    if len(df_progress_block) != 0:
+        line_fig = px.line(df_progress_block, x = "Date", y = "Hours", text="Date", template="plotly_white", width=900, height=400)
+    else:
+        line_fig = px.line(df_progress_block,  template="plotly_white", width=900, height=400)
+
     line_fig.update_traces(textposition="bottom right")
     line_plot = plot(line_fig, output_type="div")
 
@@ -131,6 +136,11 @@ def update_scoping_block(request, scoping_block_id):
 
 
 #DELETION-----------------
+def delete_project(request, project_id):
+    project = Project.objects.get(pk=project_id)
+    project.delete()
+    return redirect('home')
+
 def delete_progress_block(request, progress_block_id):
     progress_block = Progress_Block.objects.get(pk=progress_block_id)
     progress_block.delete()

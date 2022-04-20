@@ -20,4 +20,5 @@ urlpatterns = [
 
     path('progress-block-delete/<progress_block_id>', views.delete_progress_block, name='delete-progress'),
     path('scoping-block-delete/<scoping_block_id>', views.delete_scoping_block, name='delete-scoping'),
+    path('project-delete/<project_id>', views.delete_project, name='delete-project'),
 ]

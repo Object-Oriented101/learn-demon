@@ -36,9 +36,10 @@ href="{% static 'projects/css/bootstrap.css' %}"
             {% for project in projects %}
              <div class="col">
                  <div class="card text-white" style="background-color:rgb(48, 98, 205);">
-                     <center><h2>{{project.name}} </h2></center>
-                     <p style="font-size:18px;">Problem Statemant: {{project.problem_statemant}} </p>
-                     <a class="btn btn-secondary" href="/{{project.id}}">Go to dashboard!</a>
+                    <center><h2>{{project.name}} </h2></center>
+                    <p style="font-size:18px;">Problem Statemant: {{project.problem_statemant}} </p>
+                    <a class="btn btn-secondary" href="/{{project.id}}">Go to dashboard!</a>
+                    <a class="btn btn-outline-danger" href="{% url 'delete-project' project.id %}">Delete</a>
                  </div>
              </div>
              {% endfor %}
