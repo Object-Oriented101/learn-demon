@@ -39,7 +39,9 @@ href="{% static 'projects/css/bootstrap.css' %}"
                     <center><h2>{{project.name}} </h2></center>
                     <p style="font-size:18px;">Problem Statemant: {{project.problem_statemant}} </p>
                     <a class="btn btn-secondary" href="/{{project.id}}">Go to dashboard!</a>
-                    <a class="btn btn-outline-danger" href="{% url 'delete-project' project.id %}">Delete</a>
+                    <br>
+                    <br>
+                    <a class="btn btn-danger" href="{% url 'delete-project' project.id %}">Delete</a>
                  </div>
              </div>
              {% endfor %}

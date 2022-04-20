@@ -1,5 +1,7 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
-
+from django.contrib import messages
+from django.urls import reverse
 from .forms import Project_Form, High_Level_Task_Form, Progress_Form, Scoping_Form 
 
 from projects.models import Progress_Block, Scoping_Block, Project, High_Level_Task
@@ -10,10 +12,12 @@ import plotly.express as px
 #Clean up the little things
 #   -Subtasks filtered by scope
 #   -Ensure graph is only in ascending order
-#   -recheck the models (remove phase number?)
 #   -make progress logs in ascending order
-#   -warning sign hen deleting
-#Login for different users...
+#   -warning sign then deleting
+#   -flash messages?
+# Login for different users...
+# Deployment...
+# UI Revamp
 
 def project(request, project_id):
 
@@ -55,7 +59,7 @@ def project(request, project_id):
     return render(request, 'project_view.html', context)
 
 def index(request):
-    project_retrieval = Project.objects.all() #ERROR CHECK IF EMPTY
+    project_retrieval = Project.objects.all() 
 
     context = {'projects': project_retrieval}
     return render(request, 'index.html', context)
@@ -70,21 +74,12 @@ def form_project(request):
     form = Project_Form()
     return render(request, 'form_project.html', {'form': form})
 
-def form_progress_block(request, project_id):
-    if request.method == 'POST':
-        form = Progress_Form(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('home')
-    form = Progress_Form()
-    return render(request, 'form_progress_log.html', {'form': form})
-
 def form_scoping_block(request, project_id):
     if request.method == 'POST':
         form = Scoping_Form(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('home')
+            return HttpResponseRedirect(reverse('project', args=[project_id]))
     
     form = Scoping_Form()
     return render(request, 'form_scoping.html', {'form': form})
@@ -96,10 +91,20 @@ def create_high_level_task(request, project_id):
         form = High_Level_Task_Form(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('home')
+            return HttpResponseRedirect(reverse('project', args=[project_id]))
     
     form = High_Level_Task_Form()
     return render(request, 'form_high_leveL_task.html', {'form': form})
+
+def form_progress_block(request, project_id):
+    if request.method == 'POST':
+        form = Progress_Form(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, ('Progress block was added!'))
+            return HttpResponseRedirect(reverse('project', args=[project_id]))
+    form = Progress_Form()
+    return render(request, 'form_progress_log.html', {'form': form})
 
 #UPDATE-------------------------
 def update_project(request, project_id):

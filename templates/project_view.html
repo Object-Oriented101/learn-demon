@@ -64,7 +64,7 @@ href="{% static 'projects/css/bootstrap.css' %}"
         <div class="row mt-5" style="height: 2000px">
             <div class="col-md-6">
                 <center><h1>Progress Log</h1></center>
-                <a class="btn btn-primary btn-lg btn-block" href="{% url 'add-progress-block' 1 %}">Add new work</a>
+                <a class="btn btn-primary btn-lg btn-block" href="{% url 'add-progress-block' project_details.id %}">Add new work</a>
 
                 <br>
                 <br>
@@ -85,7 +85,7 @@ href="{% static 'projects/css/bootstrap.css' %}"
             </div>
             <div class="col">
                 <center><h1> Project Scoping </h1></center>
-                <a class="btn btn-primary btn-lg btn-block" href="{% url 'add-scope-block' 1 %}">Add new scope block</a>
+                <a class="btn btn-primary btn-lg btn-block" href="{% url 'add-scope-block' project_details.id %}">Add new scope block</a>
                 <br>
                 <br>
                 {% for scope_block in scoping_blocks %}
@@ -104,7 +104,7 @@ href="{% static 'projects/css/bootstrap.css' %}"
                                 <li style="font-size:20px">{{high_level_task.task}} <a class="btn btn-outline-light" href="{% url 'update-task' high_level_task.id %}"> UPDATE</a></li>
                             {% endif %}
                         {% endfor %}
-                        <a class="btn btn-success" href="{% url 'add-task' 1 %}">Create Task</a>
+                        <a class="btn btn-success" href="{% url 'add-task' project_details.id %}">Create Task</a>
                     </div>
                 </div>
                 <br>
