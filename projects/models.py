@@ -19,7 +19,7 @@ class Scoping_Block(models.Model):
     phase_number = models.IntegerField()
     phase_name = models.CharField(max_length=1000)
     description = models.CharField(max_length=1000)
-    project = models.ForeignKey(Project, blank=True, null=True, on_delete=models.CASCADE)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE)
 
     def __str__(self):
         return str(self.phase_name)

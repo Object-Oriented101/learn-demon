@@ -20,6 +20,7 @@ class Scoping_Form(forms.ModelForm):
     class Meta:
         model = Scoping_Block 
         fields = '__all__' 
+        exclude = ('project',)
 
 class High_Level_Task_Form(forms.ModelForm):
 

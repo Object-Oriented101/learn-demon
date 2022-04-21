@@ -12,10 +12,10 @@ import plotly.express as px
 
 #Clean up the little things
 #   -Subtasks filtered by scope
-# Login for different users...
 # Deployment...
+# Login for different users...
 # Future Tasks
-#   -UI Revamp
+#   -UI Revamp (Layout, Forms, Back buttons)
 #   -Autofill date for today and add a calendar
 
 def project(request, project_id):
@@ -78,8 +78,10 @@ def form_project(request):
 
 def form_scoping_block(request, project_id):
     if request.method == 'POST':
+        project = Project.objects.get(pk=project_id)
         form = Scoping_Form(request.POST)
         if form.is_valid():
+            form.instance.project = project
             form.save()
             messages.success(request, ('Scoping Block was added!'))
             return HttpResponseRedirect(reverse('project', args=[project_id]))
