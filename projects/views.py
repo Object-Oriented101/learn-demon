@@ -1,3 +1,4 @@
+import datetime
 from django.http import HttpResponseRedirect
 from django.shortcuts import redirect, render
 from django.contrib import messages
@@ -11,13 +12,11 @@ import plotly.express as px
 
 #Clean up the little things
 #   -Subtasks filtered by scope
-#   -Ensure graph is only in ascending order
-#   -make progress logs in ascending order
-#   -warning sign then deleting
-#   -flash messages?
 # Login for different users...
 # Deployment...
-# UI Revamp
+# Future Tasks
+#   -UI Revamp
+#   -Autofill date for today and add a calendar
 
 def project(request, project_id):
 
@@ -31,6 +30,8 @@ def project(request, project_id):
         'Description': i.description
         } for i in progress_blocks
     ] 
+
+    parsed_progress_blocks = sorted(parsed_progress_blocks, key=lambda p: p['Date'], reverse=False)
 
     df_progress_block = pd.DataFrame(parsed_progress_blocks)
     line_fig = 0;
@@ -64,12 +65,13 @@ def index(request):
     context = {'projects': project_retrieval}
     return render(request, 'index.html', context)
 
-#Creation Code
+#-----------------------CREATE-------------------------
 def form_project(request):
     if request.method == 'POST':
         form = Project_Form(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, ('Project was added!'))
             return redirect('home')
     form = Project_Form()
     return render(request, 'form_project.html', {'form': form})
@@ -79,6 +81,7 @@ def form_scoping_block(request, project_id):
         form = Scoping_Form(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, ('Scoping Block was added!'))
             return HttpResponseRedirect(reverse('project', args=[project_id]))
     
     form = Scoping_Form()
@@ -91,6 +94,7 @@ def create_high_level_task(request, project_id):
         form = High_Level_Task_Form(request.POST)
         if form.is_valid():
             form.save()
+            messages.success(request, ('High Level Task was added!'))
             return HttpResponseRedirect(reverse('project', args=[project_id]))
     
     form = High_Level_Task_Form()
@@ -106,52 +110,62 @@ def form_progress_block(request, project_id):
     form = Progress_Form()
     return render(request, 'form_progress_log.html', {'form': form})
 
-#UPDATE-------------------------
+#-----------------------UPDATE-------------------------
 def update_project(request, project_id):
     project = Project.objects.get(pk=project_id)
     form = Project_Form(request.POST or None, instance=project)
     if form.is_valid():
         form.save()
-        return redirect('home')
+        messages.success(request, ('Project was updated!'))
+        return HttpResponseRedirect(reverse('project', args=[project_id]))
     return render(request, 'form_project_update.html', {'form': form})
 
-def update_high_level_task(request, high_level_task_id):
-    task = High_Level_Task.objects.get(pk=high_level_task_id)
-    form = High_Level_Task_Form(request.POST or None, instance=task)
-    if form.is_valid():
-        form.save()
-        return redirect('home')
-    return render(request, 'form_high_leveL_task.html', {'form': form})
-
-def update_progress_block(request, progress_block_id):
-    progress_block = Progress_Block.objects.get(pk=progress_block_id)
-    form = Progress_Form(request.POST or None, instance=progress_block)
-    if form.is_valid():
-        form.save()
-        return redirect('home')
-    return render(request,'form_progress_update.html', {'progress_block': progress_block, 'form': form})
-
-def update_scoping_block(request, scoping_block_id):
+def update_scoping_block(request, project_id, scoping_block_id):
     scoping_block = Scoping_Block.objects.get(pk=scoping_block_id)
     form = Scoping_Form(request.POST or None, instance=scoping_block)
     if form.is_valid():
         form.save()
-        return redirect('home')
+        messages.success(request, ('Scoping Block was updated!'))
+        return HttpResponseRedirect(reverse('project', args=[project_id]))
     return render(request,'form_progress_update.html', {'scoping_block': scoping_block, 'form': form})
 
+def update_high_level_task(request, project_id, high_level_task_id):
+    task = High_Level_Task.objects.get(pk=high_level_task_id)
+    form = High_Level_Task_Form(request.POST or None, instance=task)
+    if form.is_valid():
+        form.save()
+        messages.success(request, ('High Level Task was updated!'))
+        return HttpResponseRedirect(reverse('project', args=[project_id]))
+    return render(request, 'form_high_leveL_task.html', {'form': form})
 
-#DELETION-----------------
+def update_progress_block(request, project_id, progress_block_id):
+    progress_block = Progress_Block.objects.get(pk=progress_block_id)
+    form = Progress_Form(request.POST or None, instance=progress_block)
+    if form.is_valid():
+        form.save()
+        messages.success(request, ('Progress Block was updated!'))
+        return HttpResponseRedirect(reverse('project', args=[project_id]))
+    return render(request,'form_progress_update.html', {'progress_block': progress_block, 'form': form})
+
+
+
+#-----------------------DELETE-------------------------
 def delete_project(request, project_id):
     project = Project.objects.get(pk=project_id)
     project.delete()
     return redirect('home')
 
-def delete_progress_block(request, progress_block_id):
-    progress_block = Progress_Block.objects.get(pk=progress_block_id)
-    progress_block.delete()
-    return redirect('home')
-
-def delete_scoping_block(request, scoping_block_id):
+def delete_scoping_block(request, project_id, scoping_block_id):
     scoping_block = Scoping_Block.objects.get(pk=scoping_block_id)
     scoping_block.delete()
-    return redirect('home')
+    return HttpResponseRedirect(reverse('project', args=[project_id]))
+
+def delete_high_level_task(request, project_id, high_level_task_id):
+    high_level_task = High_Level_Task.objects.get(pk=high_level_task_id)
+    high_level_task.delete()
+    return HttpResponseRedirect(reverse('project', args=[project_id]))
+
+def delete_progress_block(request, project_id, progress_block_id):
+    progress_block = Progress_Block.objects.get(pk=progress_block_id)
+    progress_block.delete()
+    return HttpResponseRedirect(reverse('project', args=[project_id]))

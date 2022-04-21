@@ -28,6 +28,16 @@ href="{% static 'projects/css/bootstrap.css' %}"
     }
 </style>
 <body>
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        {% endfor %}
+    {% endif %}
     <a class="btn btn-primary" href="/"> Home </a>
     <center><h1>Dashboard</h1></center>
     
@@ -69,15 +79,15 @@ href="{% static 'projects/css/bootstrap.css' %}"
                 <br>
                 <br>
 
-                {% for progress_block in progress_blocks %}
+                {% for progress_block in progress_blocks reversed %}
                 <div class="card" style="background-color: rgb(46, 92, 39);" >
                     <div class="card-body text-white" >
                         <h2 class="card-title">{{progress_block.description}}</h2>
                         <h4 class="card-subtitle mb-2">Hours: {{progress_block.hours}}</h4>
                         <p>Date: {{progress_block.date}}</p>
                         <p>Contribution to {{progress_block.scoping_phase}}: {{progress_block.high_level_task}}</p>
-                        <a class="btn btn-outline-warning" href="{% url 'update-progress' progress_block.id %}">Update</a>
-                        <a class="btn btn-outline-danger" href="{% url 'delete-progress' progress_block.id %}">Delete</a>
+                        <a class="btn btn-outline-warning" href="{% url 'update-progress' project_details.id progress_block.id %}">Update</a>
+                        <a class="btn btn-outline-danger" href="{% url 'delete-progress' project_details.id progress_block.id %}" onclick="return confirm('Are you sure you want to delete this?')">Delete</a>
                     </div>
                 </div>
                 <br>
@@ -92,8 +102,8 @@ href="{% static 'projects/css/bootstrap.css' %}"
                 <div class="card bg-secondary">
                     <div class="card-body text-white">
                         <h1 class="card-title display-6">Phase {{scope_block.phase_number}}: {{scope_block.phase_name}} 
-                        <a class="btn btn-outline-danger" style="float:right" href="{% url 'delete-scoping' scope_block.id %}">Delete</a> 
-                        <a class="btn btn-outline-warning" style="float:right" href="{% url 'update-scoping' scope_block.id %}">Update</a>
+                        <a class="btn btn-outline-danger" style="float:right" href="{% url 'delete-scoping' project_details.id scope_block.id %}" onclick="return confirm('Are you sure you want to delete this?')" >Delete</a> 
+                        <a class="btn btn-outline-warning" style="float:right" href="{% url 'update-scoping' project_details.id scope_block.id %}">Update</a>
                         </h1>
 
                         <p style="font-size: 20px;">Description: {{scope_block.description}} </p=>
@@ -101,7 +111,10 @@ href="{% static 'projects/css/bootstrap.css' %}"
                         <h4>High Level Tasks: </h4>
                         {% for high_level_task in high_level_tasks %}
                             {% if high_level_task.scope == scope_block %}
-                                <li style="font-size:20px">{{high_level_task.task}} <a class="btn btn-outline-light" href="{% url 'update-task' high_level_task.id %}"> UPDATE</a></li>
+                                <li style="font-size:20px">{{high_level_task.task}} 
+                                    <a class="btn btn-outline-light" href="{% url 'update-task' project_details.id high_level_task.id %}"> UPDATE</a> 
+                                    <a class="btn btn-outline-danger" href="{% url 'delete-task' project_details.id high_level_task.id %}" onclick="return confirm('Are you sure you want to delete this?')">Delete</a>
+                                </li>
                             {% endif %}
                         {% endfor %}
                         <a class="btn btn-success" href="{% url 'add-task' project_details.id %}">Create Task</a>
