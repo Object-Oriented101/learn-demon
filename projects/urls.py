@@ -6,12 +6,12 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='home'),
-    path('<project_id>', views.project, name='project'),
+    path('<project_id>', views.project, name='project_access'),
 
     path('project-addition/', views.form_project, name='add-project'),
-    path('scoping-block-addition/<project_id>', views.form_scoping_block, name='add-scope-block'),
-    path('high-level-task-addition/<project_id>', views.create_high_level_task, name='add-task'),
-    path('progress-block-addition/<project_id>', views.form_progress_block, name='add-progress-block'),
+    path('scoping-block-addition/<int:project_id>', views.form_scoping_block, name='add-scope-block'),
+    path('high-level-task-addition/<int:project_id>', views.create_high_level_task, name='add-task'),
+    path('progress-block-addition/<int:project_id>', views.form_progress_block, name='add-progress-block'),
 
     path('update-project/<project_id>', views.update_project, name='update-project'),
     path('scoping-block-update/<project_id>/<scoping_block_id>', views.update_scoping_block, name='update-scoping'),
