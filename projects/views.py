@@ -20,8 +20,8 @@ import plotly.express as px
 
 def project(request, project_id):
 
+    #project_id = 1
     #Line Graph
-    project_id = int(project_id) 
     progress_blocks = Progress_Block.objects.filter(project_id=project_id)
 
 
@@ -46,14 +46,14 @@ def project(request, project_id):
     line_plot = plot(line_fig, output_type="div")
 
     #Project Details passback
-    project_retrieval = Project.objects.filter(pk=1) #ERROR CHECK IF EMPTY
+    project_retrieval = Project.objects.filter(pk=project_id) #ERROR CHECK IF EMPTY
     project_details = project_retrieval[0]
 
     #Scoping Details passback
-    scoping_blocks = Scoping_Block.objects.filter(project_id=1) #ERROR CHECK IF EMPTY
+    scoping_blocks = Scoping_Block.objects.filter(project_id=project_id) #ERROR CHECK IF EMPTY
 
     #High-Level Tasks Details passback
-    high_level_task_list = High_Level_Task.objects.filter(project_id=1)
+    high_level_task_list = High_Level_Task.objects.filter(project_id=project_id)
     
 
     context = {'line_plot': line_plot, 'project_details': project_details, 'progress_blocks': progress_blocks, 

@@ -6,7 +6,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='home'),
-    path('<project_id>', views.project, name='project_access'),
+    path('<project_id>', views.project, name='project'),
 
     path('project-addition/', views.form_project, name='add-project'),
     path('scoping-block-addition/<int:project_id>', views.form_scoping_block, name='add-scope-block'),
